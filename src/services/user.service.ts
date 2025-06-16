@@ -1,11 +1,13 @@
 import { encryptSync } from "../utils/encrypt";
 import User from "../models/user.model";
 import { Op } from "sequelize";
+import { Student } from "../models";
+import { Teacher } from "../models";
 
 export const createUser = async (payload: any) => {
   payload.password_hash = encryptSync(payload.password_hash);
   const user = await User.create(payload);
-  return user;  
+  return user;
 };
 
 export const getUserById = async (id: number) => {
@@ -49,12 +51,26 @@ export const findOneUser = async (options: any) => {
     where[Op.or].push({ email: options.email });
   }
   if (options.id) {
-    where[Op.or].push({ id: options.id });
+    where[Op.or].push({ user_id: options.id });
   }
 
   const user = await User.findOne({
     where,
-    attributes: { exclude: ["password"] },
+    attributes: {
+      exclude: ["password"],
+    },
+    include: [
+      {
+        model: Student,
+        as: "student",
+        attributes: ["student_id"],
+      },
+      {
+        model: Teacher,
+        as: "teacher",
+        attributes: ["teacher_id"],
+      },
+    ],
   });
   return user;
 };

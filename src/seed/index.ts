@@ -53,6 +53,10 @@ async function seed() {
     class_name: "10A1",
     academic_year: "2024-2025",
   });
+  const class10A2 = await Class.create({
+    class_name: "10A2",
+    academic_year: "2024-2025",
+  });
 
   // Tạo Teacher
   const teacher = await Teacher.create({
@@ -133,7 +137,7 @@ async function seed() {
     teacher_id: teacher.teacher_id,
     class_id: class10A1.class_id,
     course_id: course2.course_id,
-    date: new Date("2025-05-05"),
+    date: new Date("2025-05-19T13:30:00"),
     lesson_period: "4-6",
     room: "B202",
   });

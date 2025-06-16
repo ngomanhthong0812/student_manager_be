@@ -1,8 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../db/connection";
 import { compareSync } from "../utils/encrypt";
-import Student from "./student.model";
-import Teacher from "./teacher.model";
 
 // Định nghĩa interface cho User
 interface UserAttributes {
@@ -69,5 +67,9 @@ User.init(
     updatedAt: "updated_at",
   }
 );
+
+User.validPassword = (password: string, hash: string): boolean => {
+  return compareSync(password, hash);
+};
 
 export default User;

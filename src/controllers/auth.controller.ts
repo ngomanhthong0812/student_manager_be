@@ -36,7 +36,7 @@ export const register = async (req: Request, res: Response) => {
     sendResponse(res, 500, {
       success: false,
       message: "Internal Server Error",
-      error
+      error,
     });
   }
 };
@@ -60,14 +60,17 @@ export const login = async (req: Request, res: Response) => {
     sendResponse(res, 200, {
       success: true,
       message: "Login successfully",
-      data: accessToken, 
+      data: {
+        token: accessToken,
+        user: userData,
+      },
     });
   } catch (error) {
     console.error(error);
     sendResponse(res, 500, {
       success: false,
       message: "Internal Server Error",
-      error
+      error,
     });
   }
 };

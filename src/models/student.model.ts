@@ -4,7 +4,7 @@ import User from "./user.model";
 import Class from "./class.model";
 import Enrollment from "./enrollment.model";
 
-interface StudentAttributes {
+export interface StudentAttributes {
   student_id: number;
   user_id: number;
   class_id: number;
